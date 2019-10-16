@@ -1,27 +1,24 @@
 var inquirer = require("inquirer");
 
-inquirer.prompt([
-    {
-        type: "input",
-        name: "letter",
-        message: "What letter would you like to select?"
-    }
-]).then(function (answers) {
-    console.log(answers.letter);
+function Letter(targetLetter, isLetterGuessed) {
+    this.targetLetter = targetLetter;
+    this.isLetterGuessed = isLetterGuessed;
 
-    function Letter(letter) {
-        this.letter = letter;
-        console.log("Letter: " + this.letter)
-        if (answers.letter === this.letter) {
-            return console.log("It worked! The letter you chose was: " + this.letter)
+    this.boolean = function () {
+        if (userGuess === this.targetLetter) {
+            this.isLetterGuessed = true;
         }
         else {
-            return console.log("_")
+            this.isLetterGuessed = false;
         }
     }
 
-    var newLetter = new Letter("a")
-
-})
-
-
+    this.showValue = function () {
+        if (isLetterGuessed === true) {
+            return this.targetLetter;
+        }
+        else {
+            return "_";
+        }
+    }
+}
