@@ -1,5 +1,6 @@
 var inquirer = require("inquirer");
 
+
 function inquirerLetterGuess() {
     inquirer.prompt([
         {
@@ -9,6 +10,7 @@ function inquirerLetterGuess() {
         }
     ]).then(function (userGuess) {
         console.log(userGuess.letter);
+
     })
 }
 inquirerLetterGuess()
