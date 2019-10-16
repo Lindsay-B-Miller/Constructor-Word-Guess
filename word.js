@@ -10,3 +10,5 @@ var Word = function (targetWord) {
         this.letters.push(new Letter(targetLetter, isLetterGuessed));
     };
 };
+
+module.exports = Word;
