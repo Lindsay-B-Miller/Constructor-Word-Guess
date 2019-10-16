@@ -1,19 +1,36 @@
 var inquirer = require("inquirer");
 var Word = require("./word");
+var guessingWord = [];
 
 // Creating a new Word with the constructor and storing it in blanket
 var blanket = new Word("blanket");
 
-// Logging out some initial information about blanket object
+// Logging target word
 console.log("Word: " + blanket.targetWord);
 
+// Logging all the letters in target word
 console.log("Length: " + blanket.targetWord.length)
 for (i = 0; i < blanket.targetWord.length; i++) {
-    console.log("SELECTED LETTER: " + (blanket.targetWord[i].split()))
+    console.log(blanket.targetWord[i].split())
+    blanket.addLetter(blanket.targetWord[i].split(), false);
 }
 
-blanket.addLetter("b", false);
-console.log("First letter: " + JSON.stringify(blanket.letters, null, 2) + "\n");
+// Generating the placeholder
+function placeholder() {
+    for (i = 0; i < blanket.lettersArray.length; i++) {
+        if (blanket.lettersArray[i].isLetterGuessed === true) {
+            guessingWord.push(blanket.lettersArray[i].targetLetter)
+        }
+        else {
+            guessingWord.push("_")
+        }
+    }
+    console.log("Guessing Word: " + guessingWord.join(" "))
+}
+placeholder();
+// console.log("Letter Array: " + JSON.stringify(blanket.lettersArray, null, 2) + "\n");
+
+
 
 // function inquirerLetterGuess() {
 //     inquirer.prompt([
