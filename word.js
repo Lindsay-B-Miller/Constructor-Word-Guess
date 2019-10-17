@@ -8,8 +8,8 @@ var Word = function (targetWord) {
     // this.letters = [];
 
     // This method that creates a CastMember object from the constructor function we required and pushes it to the `this.letters` array
-    this.addLetter = function (targetLetter, isLetterGuessed) {
-        this.lettersArray.push(new Letter(targetLetter, isLetterGuessed));
+    this.addLetter = function (targetLetter) {
+        this.lettersArray.push(new Letter(targetLetter));
         // console.log("Target Letter: " + this.lettersArray[0].targetLetter);
         // this.letters.push(this.lettersArray[0].targetLetter);
 

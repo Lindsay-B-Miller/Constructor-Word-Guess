@@ -15,17 +15,28 @@ for (i = 0; i < blanket.targetWord.length; i++) {
     blanket.addLetter(blanket.targetWord[i], false);
 }
 
+// Rendering initial guessingWord
+function render() {
+    for (i = 0; i < blanket.lettersArray.length; i++) {
+        guessingWord[i] = "_"
+
+    }
+}
+render();
+
 // Generating the placeholder
 function placeholder() {
     for (i = 0; i < blanket.lettersArray.length; i++) {
         if (blanket.lettersArray[i].isLetterGuessed === true) {
-            guessingWord.push(blanket.lettersArray[i].targetLetter)
+            guessingWord[i] = (blanket.lettersArray[i].targetLetter)
+            // guessingWord[i] = userGuess.letter
         }
-        else {
-            guessingWord.push("_")
-        }
+        // else {
+        //     // guessingWord.push("_")
+        //     guessingWord[i] = "_"
+        // }
     }
-    console.log("Guessing Word: " + guessingWord.join(" "))
+    // console.log("Guessing Word: " + guessingWord.join(" "))
 }
 // placeholder()
 
@@ -42,10 +53,23 @@ function inquirerLetterGuess() {
         console.log(userGuess.letter);
         for (i = 0; i < blanket.targetWord.length; i++) {
             blanket.lettersArray[i].boolean(userGuess.letter);
-            // console.log(blanket.lettersArray[i].isLetterGuessed);
         }
-        // console.log(blanket.lettersArray)
         placeholder()
+        // console.log(guessingWord);
+        // if (guessingWord.join(" ") === blanket.targetWord) {
+        //     return console.log("You win!");
+        // }
+        // else {
+        //     for (var i = 0; i < blanket.targetWord.length; i++) {
+        //         var currentLetter = blanket.targetWord[i]
+        //         if (userGuess.letter === currentLetter) {
+        //             guessingWord[i] = userGuess.letter;
+        //         }
+
+        // }
+        console.log("Guessing Word: " + guessingWord.join(" "))
+        // guessingWord = [];
+        inquirerLetterGuess()
     })
 }
 inquirerLetterGuess()
