@@ -4,28 +4,30 @@ var Letter = require("./letter")
 var guessingWord = [];
 var wins = 0;
 var guessesRemaining = 10;
+var playingWord = "";
+var currentWord = "";
 var wordOptions = ["adventure", "animals", "backpack", "campground", "campfire", "cabin", "compass", "equipment", "flashlight", "fishing", "forest", "hammock", "hike", "lantern", "nature", "outdoors", "outside", "sunscreen", "tent", "waterfall"];
 
 // Selecting a random word
-var currentWord = wordOptions[Math.floor(Math.random() * wordOptions.length)];
-console.log(currentWord)
-
-// Creating a new Word with the constructor and storing it in blanket
-// var blanket = new Word("blanket");
-var playingWord = new Word(currentWord)
-
-// Logging target word
-// console.log("Word: " + blanket.targetWord);
+chooseWord();
+function chooseWord() {
+    currentWord = wordOptions[Math.floor(Math.random() * wordOptions.length)];
+    console.log(currentWord)
+    // Creating a new Word with the constructor and storing it in playingWord
+    playingWord = new Word(currentWord)
+}
 
 // Logging all the letters in target word
-for (i = 0; i < blanket.targetWord.length; i++) {
-    // console.log(blanket.targetWord[i].split())
-    blanket.addLetter(blanket.targetWord[i], false);
+function targetLettersLogged() {
+    for (i = 0; i < playingWord.targetWord.length; i++) {
+        playingWord.addLetter(playingWord.targetWord[i], false);
+    }
 }
+targetLettersLogged();
 
 // Rendering initial guessingWord
 function render() {
-    for (i = 0; i < blanket.lettersArray.length; i++) {
+    for (i = 0; i < playingWord.lettersArray.length; i++) {
         guessingWord[i] = "_"
 
     }
@@ -34,20 +36,12 @@ render();
 
 // Generating the placeholder
 function placeholder() {
-    for (i = 0; i < blanket.lettersArray.length; i++) {
-        if (blanket.lettersArray[i].isLetterGuessed === true) {
-            guessingWord[i] = (blanket.lettersArray[i].targetLetter)
-            // guessingWord[i] = userGuess.letter
+    for (i = 0; i < playingWord.lettersArray.length; i++) {
+        if (playingWord.lettersArray[i].isLetterGuessed === true) {
+            guessingWord[i] = (playingWord.lettersArray[i].targetLetter)
         }
-        // else {
-        //     // guessingWord.push("_")
-        //     guessingWord[i] = "_"
-        // }
     }
-    // console.log("Guessing Word: " + guessingWord.join(" "))
 }
-// placeholder()
-
 
 
 function inquirerLetterGuess() {
@@ -61,7 +55,7 @@ function inquirerLetterGuess() {
         console.log(userGuess.letter);
 
         // Logging incorrect or correct guesses, subtracts guesses remaining when guess a wrong letter
-        if (blanket.targetWord.includes(userGuess.letter)) {
+        if (playingWord.targetWord.includes(userGuess.letter)) {
             console.log("CORRECT!")
         }
         else {
@@ -70,23 +64,27 @@ function inquirerLetterGuess() {
             console.log("Number of guesses remaining: " + guessesRemaining);
         }
 
-        for (i = 0; i < blanket.targetWord.length; i++) {
-            blanket.lettersArray[i].boolean(userGuess.letter);
+        for (i = 0; i < playingWord.targetWord.length; i++) {
+            playingWord.lettersArray[i].boolean(userGuess.letter);
         }
         placeholder()
-        if (guessingWord.join('') === blanket.targetWord) {
-            console.log("You win!");
+        if (guessingWord.join('') === playingWord.targetWord) {
             wins++;
+            console.log("You win! Play again: ");
             reset()
-
         }
-        console.log("Guess a letter: " + guessingWord.join(" "))
-        inquirerLetterGuess()
+        else {
+            console.log("Guess a letter: " + guessingWord.join(" "))
+            inquirerLetterGuess()
+        }
     })
 }
 inquirerLetterGuess()
 
 function reset() {
-    guessesRemaining = 10;
+    chooseWord();
+    targetLettersLogged();
+    guessingWord = [];
     render();
+    inquirerLetterGuess();
 };
