@@ -2,6 +2,8 @@ var inquirer = require("inquirer");
 var Word = require("./word");
 var Letter = require("./letter")
 var guessingWord = [];
+var wins = 0;
+var guessesRemaining = 10;
 
 // Creating a new Word with the constructor and storing it in blanket
 var blanket = new Word("blanket");
@@ -51,26 +53,34 @@ function inquirerLetterGuess() {
         }
     ]).then(function (userGuess) {
         console.log(userGuess.letter);
+
+        // Logging incorrect or correct guesses, subtracts guesses remaining when guess a wrong letter
+        if (blanket.targetWord.includes(userGuess.letter)) {
+            console.log("CORRECT!")
+        }
+        else {
+            console.log("INCORRECT!");
+            guessesRemaining--;
+            console.log("Number of guesses remaining: " + guessesRemaining);
+        }
+
+
         for (i = 0; i < blanket.targetWord.length; i++) {
             blanket.lettersArray[i].boolean(userGuess.letter);
         }
         placeholder()
-        // console.log(guessingWord);
-        // if (guessingWord.join(" ") === blanket.targetWord) {
-        //     return console.log("You win!");
-        // }
-        // else {
-        //     for (var i = 0; i < blanket.targetWord.length; i++) {
-        //         var currentLetter = blanket.targetWord[i]
-        //         if (userGuess.letter === currentLetter) {
-        //             guessingWord[i] = userGuess.letter;
-        //         }
+        if (guessingWord.join('') === blanket.targetWord) {
+            console.log("You win!");
+            wins++;
+            reset()
 
-        // }
-        console.log("Guessing Word: " + guessingWord.join(" "))
-        // guessingWord = [];
+        }
+        console.log("Guess a letter: " + guessingWord.join(" "))
         inquirerLetterGuess()
     })
 }
 inquirerLetterGuess()
 
+function reset() {
+
+};
