@@ -13,7 +13,7 @@ var wordOptions = ["adventure", "animals", "backpack", "campground", "campfire",
 chooseWord();
 function chooseWord() {
     currentWord = wordOptions[Math.floor(Math.random() * wordOptions.length)];
-    console.log(currentWord)
+    // console.log(currentWord)
     // Creating a new Word with the constructor and storing it in playingWord
     playingWord = new Word(currentWord)
 }
