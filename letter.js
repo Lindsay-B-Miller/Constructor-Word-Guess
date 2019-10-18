@@ -16,16 +16,6 @@ var Letter = function (targetLetter) {
             // console.log(isLetterGuessed);
         }
     }
-
-    // this.showValue = function () {
-    //     if (isLetterGuessed === true) {
-    //         return console.log(this.targetLetter);
-    //     }
-    //     else {
-    //         return console.log("_");
-    //     }
-
-    // }
 }
 
 // Exporting Letter constructor

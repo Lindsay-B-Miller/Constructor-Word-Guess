@@ -3,6 +3,7 @@ var Word = require("./word");
 var Letter = require("./letter")
 var guessingWord = [];
 var wins = 0;
+var losses = 0;
 var guessesRemaining = 10;
 var playingWord = "";
 var currentWord = "";
@@ -62,29 +63,43 @@ function inquirerLetterGuess() {
             console.log("INCORRECT!");
             guessesRemaining--;
             console.log("Number of guesses remaining: " + guessesRemaining);
+
         }
 
         for (i = 0; i < playingWord.targetWord.length; i++) {
             playingWord.lettersArray[i].boolean(userGuess.letter);
-        }
+        };
         placeholder()
         if (guessingWord.join('') === playingWord.targetWord) {
             wins++;
-            console.log("You win! Play again: ");
+            console.log("You win! Correct word was " + playingWord.targetWord + ". Play again: ");
             reset()
+        }
+
+        else if (guessesRemaining === 0) {
+            losses++;
+            console.log("You lose! Play again: ");
+            reset();
         }
         else {
             console.log("Guess a letter: " + guessingWord.join(" "))
             inquirerLetterGuess()
-        }
+        };
+
+
     })
 }
+
+
 inquirerLetterGuess()
 
 function reset() {
+    console.log("Wins: " + wins);
+    console.log("Losses: " + losses);
     chooseWord();
     targetLettersLogged();
     guessingWord = [];
+    guessesRemaining = 10;
     render();
     inquirerLetterGuess();
 };
